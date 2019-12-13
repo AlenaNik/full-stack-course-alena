@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom'
 import Header from './Header';
 import Total from './Total';
 import Content from './Content';
+import Display from './Display';
+import Button from './Button';
 
 const App = (props) => {
     const [counter, setCounter] = useState(0)
 
-  const setValueTo = (value) => setCounter(value);
+const setValueTo = (value) => setCounter(value)
 
 
     return (
-        <div>{counter}
-        <button onClick={() => setValueTo(counter + 1)}> Click me</button>
-        <button onClick={() => setValueTo(0)}> Click me to reset</button>
+        <div>
+            <Display counter={counter}/>
+            <Button onClick={() => setValueTo(counter + 1)} text='Click me'/>
+            <Button onClick={() => setValueTo(0)} text='Reset Button'/>
         </div>
             )
 }
