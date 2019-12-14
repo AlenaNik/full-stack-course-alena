@@ -1,7 +1,13 @@
 import React from 'react';
 
 
-const Button = ({onClick, text}) => (
-    <button onClick={onClick}>{text}</button>
+const Button = (props) => {
+    console.log(props)
+    const { onClick, text } = props
+    return (
+        <button onClick={onClick}> {text}
+        </button>
     )
-export default Button
+}
+
+export default Button;

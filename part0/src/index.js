@@ -1,30 +1,36 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import History from './History';
-
+import Button from './Button';
 
 const App = (props) => {
-const [left, setLeft] = useState(0)
-const [right, setRight] = useState(0)
-const [allClicks, setAll] = useState([])
+const [good, setGood] = useState(0)
+const [neutral, setNeutral] = useState(0)
+const [bad, setBad] = useState(0)
 
-    const handleLeftClick = () => {
-        setAll(allClicks.concat('L'))
-        setLeft(left + 1)
+    const setGoodClick = (goodclick) => {
+        setGood(goodclick)
     }
-
-    const handleRightClick = () => {
-    setAll(allClicks.concat('R'))
-        setRight(right + 1)
+    const setNeutralClick = (neutralclick) => {
+        setNeutral(neutralclick)
+    }
+    const setBadClick = (badclick) => {
+        setBad(badclick)
     }
 
     return (
         <div>
-            {left}
-            <button onClick={handleLeftClick}>left</button>
-            {right}
-            <button onClick={handleRightClick}>right</button>
-            <History allClicks={allClicks}/>
+            <h1>Give Feedback</h1>
+            {good}
+            <Button onClick={() => setGoodClick(good + 1)} text='good'/>
+            {neutral}
+            <Button onClick={() => setNeutralClick(neutral + 1)}  text='neutral'/>
+            {bad}
+            <Button onClick={() => setBadClick(bad + 1)}  text='bad'/>
+            <h1>statistic</h1>
+            <History result={bad} text="bad result"/>
+            <History result={good} text="good result"/>
+            <History result={neutral} text="neutral result"/>
         </div>
     )
 
