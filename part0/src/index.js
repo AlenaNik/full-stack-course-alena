@@ -1,24 +1,32 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
-import Header from './Header';
-import Total from './Total';
-import Content from './Content';
-import Display from './Display';
-import Button from './Button';
+
 
 const App = (props) => {
-    const [counter, setCounter] = useState(0)
+const [left, setLeft] = useState(0)
+const [right, setRight] = useState(0)
+const [allClicks, setAll] = useState([])
 
-const setValueTo = (value) => setCounter(value)
+    const handleLeftClick = () => {
+        setAll(allClicks.concat('L'))
+        setLeft(left + 1)
+    }
 
+    const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+        setRight(right + 1)
+    }
 
     return (
         <div>
-            <Display counter={counter}/>
-            <Button onClick={() => setValueTo(counter + 1)} text='Click me'/>
-            <Button onClick={() => setValueTo(0)} text='Reset Button'/>
+            {left}
+            <button onClick={handleLeftClick}>left</button>
+            {right}
+            <button onClick={handleRightClick}>right</button>
+            <p>{allClicks.join(' ')}</p>
         </div>
-            )
+    )
+
 }
 
 ReactDOM.render(
