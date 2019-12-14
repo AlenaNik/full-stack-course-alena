@@ -34,14 +34,15 @@ const App = (props) => {
     }
 
 
+
     return (
         <div>
             {props.anecdotes[selected]}
             <p>has {votes[selected]} votes </p>
             <button onClick={handleClick}>next anecdote</button>
             <button onClick={addVote}>vote</button>
-       <h1>Anecdotes with the most votes</h1>
-
+            <h1>Anecdotes with the most votes</h1>
+            <p>{Math.max(votes[selected])}</p>
         </div>
     )
 }
