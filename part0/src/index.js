@@ -58,8 +58,7 @@ const App = () => {
             {courses.map(part =>
                 <ul>
                 <Course key={part.id}
-                name={part.name}
-                exercise={part.exercises}
+                part={part}
                 />
                 </ul>
             )}
