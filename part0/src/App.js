@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Persons from './components/Persons.component'
+import Filter from "./components/Filter.component";
+import PersonFrom from './components/PersonForm.component';
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -26,17 +29,13 @@ const App = () => {
         }
     }
 
-
     const handleNameChange = e => {
         setNewName(e.target.value)
     }
     const handleNumberChange = e => {
         setNewNumber(e.target.value)
     }
-    const handleFilterChange = e => {
-        const inputFilter = e.target.value;
-        setFilter(inputFilter);
-    }
+
     const personsFiltered = filter === ' '
         ? persons : persons.filter(person =>
             person.name.toLowerCase().includes(filter.toLowerCase()))
@@ -46,34 +45,17 @@ const App = () => {
     return (
        <div>
            <h2>Phonebook</h2>
-           <div>
-               search: <input
-               onChange={handleFilterChange}
-           />
-           </div>
+           <Filter filter={filter} setFilter={setFilter}/>
            <h2>Add new contact person</h2>
-           <form onSubmit={addPerson}>
-               <div>
-                   name: <input
-                   value={newName}
-                   onChange={handleNameChange}
-               />
-                   <div>
-                       number: <input
-                       value={newNumber}
-                       onChange={handleNumberChange}
-                   />
-                   </div>
-               </div>
-               <div>
-                   <button type="submit">add</button>
-               </div>
-           </form>
+           <PersonFrom
+               addPerson={addPerson}
+               newName={newName}
+               handleNameChange={handleNameChange}
+               handleNumberChange={handleNumberChange}
+           />
            <h2>Numbers</h2>
            <div>
-                {personsFiltered.map (person =>
-                   <p key={person.name}>{person.name} {person.number}</p>)
-               }
+               <Persons persons={personsFiltered}/>
            </div>
        </div>
     )
