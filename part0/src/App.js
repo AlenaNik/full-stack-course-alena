@@ -3,23 +3,26 @@ import React, { useState } from "react";
 const App = () => {
     const [ persons, setPersons ] = useState([
         {
-            id: '1',
-            name: 'Arto Hellas'}
+            name: 'Arto Hellas' }
     ])
     const [ newName, setNewName ] = useState('')
 
     const addName = e => {
         e.preventDefault()
         const personObject = {
-            id: persons.length + 1,
             name: newName
         }
-        setNewName(persons.push(personObject))
-        setNewName('')
-        console.log(persons)
+
+        if (persons.some(e => e.name === newName)) {
+            alert(`${newName} is already added to phonebook`);
+        } else {
+            setNewName(persons.concat(personObject))
+            setNewName('')
+        }
     }
+
+
     const handleNameChange = e => {
-        console.log(e.target.value)
         setNewName(e.target.value)
     }
 
@@ -40,7 +43,7 @@ const App = () => {
            <h2>Numbers</h2>
            <div>
                 {persons.map (person =>
-                   <p key={person.id}>{person.name}</p>)
+                   <p key={person.name}>{person.name}</p>)
                }
            </div>
        </div>
