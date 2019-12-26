@@ -1,4 +1,4 @@
-##Full Stack Open Course of Helsinki University
+# Full Stack Open Course of Helsinki University
 ### My exercises made during the course
 
 ## [Full Stack Course](https://fullstackopen.com/e) covers 
