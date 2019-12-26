@@ -1,60 +1,49 @@
-import Note from "./components/Note";
 import React, { useState } from "react";
 
-const App = (props) => {
-    const [notes, setNotes] = useState(props.notes)
-    const [newNote, setNewNote] = useState('type a note')
-    const [showAll, setShowAll] = useState(true)
+const App = () => {
+    const [ persons, setPersons ] = useState([
+        {
+            id: '1',
+            name: 'Arto Hellas'}
+    ])
+    const [ newName, setNewName ] = useState('')
 
-
-    const notesToShow = showAll
-        ? notes
-        : notes.filter(note => note.important === true)
-
-
-    const addNote = (e) => {
+    const addName = e => {
         e.preventDefault()
-        const noteObject = {
-            content: newNote,
-            date: new Date().toISOString(),
-            important: Math.random() > 0.5,
-            id: notes.length + 1,
+        const personObject = {
+            id: persons.length + 1,
+            name: newName
         }
-        setNotes(notes.concat(noteObject))
-        setNewNote('')
+        setNewName(persons.push(personObject))
+        setNewName('')
+        console.log(persons)
     }
-
-
-    const rows = () =>
-        notesToShow.map(note => <Note
-            key={note.id}
-            note={note}
-        />
- )
-    const handleNoteChange = (e) => {
+    const handleNameChange = e => {
         console.log(e.target.value)
-        setNewNote(e.target.value)
+        setNewName(e.target.value)
     }
 
     return (
-        <div>
-            <h1>Notes</h1>
-            <div>
-                <button onClick={() => setShowAll(!showAll)}>
-                    show {showAll ? 'important' : 'all'}
-                </button>
-            </div>
-            <ul>
-                {rows()}
-            </ul>
-            <form onSubmit={addNote}>
-                <input value={newNote}
-                onChange={handleNoteChange}
-                />
-                <button type="submit">Save</button>
-            </form>
-        </div>
+       <div>
+           <h2>Phonebook</h2>
+           <form onSubmit={addName}>
+               <div>
+                   name: <input
+                   value={newName}
+                   onChange={handleNameChange}
+               />
+               </div>
+               <div>
+                   <button type="submit">add</button>
+               </div>
+           </form>
+           <h2>Numbers</h2>
+           <div>
+                {persons.map (person =>
+                   <p key={person.id}>{person.name}</p>)
+               }
+           </div>
+       </div>
     )
 }
-
 export default App
