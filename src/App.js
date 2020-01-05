@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import Input from "./Input.component";
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -23,12 +24,8 @@ const countriesFiltered = filter === ' '
 
   return (
     <div>
-        <div>
-            find countries <input
-                            onChange={handleFilterChange}
-                            />
-        </div>
- {countries.length !== 0 ?
+        <Input onChange={handleFilterChange}/>
+        { (filter.length !== 0) ?
      countriesFiltered.map(country =>
              <>
                  <h1 key={country.id}>{country.name}</h1>
