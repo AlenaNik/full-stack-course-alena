@@ -27,7 +27,6 @@ const App = () => {
     )
 
     const handleNoteChange = (event) => {
-        console.log(event.target.value)
         setNewNote(event.target.value)
     }
 
@@ -39,10 +38,11 @@ const App = () => {
             important: Math.random() > 0.5,
             id: notes.length + 1,
         }
-
-        setNotes(notes.concat(noteObject))
-        setNewNote('')
-    }
+       axios.post('http://localhost:3001/notes', noteObject)
+           .then(res => {
+               console.log(res)
+    })
+}
 
     return (
         <div>
@@ -60,7 +60,7 @@ const App = () => {
                     value={newNote}
                     onChange={handleNoteChange}
                 />
-                <button type="submit">save</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     )

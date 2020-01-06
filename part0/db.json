@@ -29,6 +29,12 @@
       "date": "2019-05-31T10:41:46.058Z",
       "important": false,
       "id": 5
+    },
+    {
+      "content": "this is a new note",
+      "date": "2020-01-06T12:36:18.042Z",
+      "important": false,
+      "id": 6
     }
   ]
 }
