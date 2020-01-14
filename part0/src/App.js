@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Persons from './components/Persons.component'
 import Filter from "./components/Filter.component";
 import PersonFrom from './components/PersonForm.component';
-import axios from 'axios';
 import personService from './services/persons';
 
 const App = () => {
@@ -29,9 +28,10 @@ const App = () => {
         if (persons.some(e => e.name === newName)) {
             alert(`${newName} is already added to phonebook`);
         } else {
-            personService.create(personObject)
-                .then(initialPerson => {
-                    setNewName(persons.push(initialPerson))
+            personService
+                .create(personObject)
+                .then(returnedPersons => {
+                    setNewName(persons.push(returnedPersons))
                     setNewName('')
                 })
         }
@@ -49,7 +49,6 @@ const App = () => {
             person.name.toLowerCase().includes(filter.toLowerCase()))
 
 
-
     return (
        <div>
            <h2>Phonebook</h2>
@@ -63,7 +62,8 @@ const App = () => {
            />
            <h2>Numbers</h2>
            <div>
-               <Persons persons={personsFiltered}/>
+               <Persons persons={personsFiltered}
+               />
            </div>
        </div>
     )
