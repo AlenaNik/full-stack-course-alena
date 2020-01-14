@@ -8,7 +8,7 @@ const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
-    const [ filter, setFilter ] = useState('')
+    const [filter, setFilter] = useState('')
 
   useEffect(() => {
         axios.get('http://localhost:3001/persons')
@@ -27,8 +27,11 @@ const App = () => {
         if (persons.some(e => e.name === newName)) {
             alert(`${newName} is already added to phonebook`);
         } else {
-            setNewName(persons.push(personObject))
-            setNewName('')
+            axios.post('http://localhost:3001/persons', personObject)
+                .then(res => {
+                    setNewName(persons.push(res.data))
+                    setNewName('')
+                })
         }
     }
 
