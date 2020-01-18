@@ -33,19 +33,19 @@
     {
       "content": "this is a new note",
       "date": "2020-01-06T12:36:18.042Z",
-      "important": false,
+      "important": true,
       "id": 6
     },
     {
       "content": "new form",
       "date": "2020-01-06T13:24:29.585Z",
-      "important": false,
+      "important": true,
       "id": 7
     },
     {
       "content": "This is a new note",
       "date": "2020-01-06T13:26:54.417Z",
-      "important": false,
+      "important": true,
       "id": 8
     }
   ]
