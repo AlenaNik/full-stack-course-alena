@@ -1,11 +1,6 @@
 import React from 'react'
 
-const Notification = ({ message }) => {
-    const notificationStyle = {
-        color: 'red',
-        fontStyle: 'italic',
-        fontSize: 16
-    }
+const NotificationPositive  = ({ message }) => {
     const notificationStyleGreen = {
         color: 'green',
         fontStyle: 'italic',
@@ -17,11 +12,11 @@ const Notification = ({ message }) => {
     }
 
     return (
-        <div style={notificationStyle}>
+        <div style={notificationStyleGreen}>
             {message}
         </div>
     )
 
 }
 
-export default Notification
+export default NotificationPositive

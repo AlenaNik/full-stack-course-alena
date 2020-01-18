@@ -4,13 +4,15 @@ import Filter from "./components/Filter.component";
 import PersonFrom from './components/PersonForm.component';
 import personService from './services/persons';
 import Notification from './components/Notification.component';
+import NotificationPositive from "./components/Notification.positive.component";
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
-    const [errorMess, setErrorMess] = useState('something happened')
+    const [errorMess, setErrorMess] = useState('')
+    const [okMess, setOkMess] = useState('')
 
   useEffect(() => {
         personService
@@ -38,6 +40,10 @@ const App = () => {
                 .then(returnedPersons => {
                     setNewName(persons.push(returnedPersons))
                     setNewName('')
+                    setOkMess(`${newName} successfully added`)
+                    setTimeout(() => {
+                        setOkMess(null)
+                    }, 5000)
                 })
         }
     }
@@ -58,6 +64,7 @@ const App = () => {
        <div>
            <h2>Phonebook</h2>
            <Notification message={errorMess}/>
+           <NotificationPositive message={okMess}/>
            <Filter filter={filter} setFilter={setFilter}/>
            <h2>Add new contact person</h2>
            <PersonFrom
