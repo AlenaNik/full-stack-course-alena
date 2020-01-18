@@ -3,12 +3,14 @@ import Persons from './components/Persons.component'
 import Filter from "./components/Filter.component";
 import PersonFrom from './components/PersonForm.component';
 import personService from './services/persons';
+import Notification from './components/Notification.component';
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
+    const [errorMess, setErrorMess] = useState('something happened')
 
   useEffect(() => {
         personService
@@ -26,7 +28,10 @@ const App = () => {
         }
 
         if (persons.some(e => e.name === newName)) {
-            alert(`${newName} is already added to phonebook`);
+            setErrorMess(`${newName} is already added to phonebook`)
+            setTimeout(() => {
+                setErrorMess(null)
+            }, 5000)
         } else {
             personService
                 .create(personObject)
@@ -52,6 +57,7 @@ const App = () => {
     return (
        <div>
            <h2>Phonebook</h2>
+           <Notification message={errorMess}/>
            <Filter filter={filter} setFilter={setFilter}/>
            <h2>Add new contact person</h2>
            <PersonFrom
