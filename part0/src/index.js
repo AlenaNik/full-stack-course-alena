@@ -4,6 +4,7 @@ import './index.css';
 import {History} from "./History";
 import {Button} from './Button'
 const App = (props) => {
+
     const [left, setLeft] = useState(0)
     const [right, setRight] = useState(0)
     const [allClicks, setAll] = useState([])
