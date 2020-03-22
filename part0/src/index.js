@@ -1,36 +1,42 @@
-import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import {History} from "./History";
-import {Button} from './Button'
-const App = (props) => {
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-    const [left, setLeft] = useState(0)
-    const [right, setRight] = useState(0)
-    const [allClicks, setAll] = useState([])
-
-    const handleLeftClick = () => {
-        setAll(allClicks.concat('L'))
-        setLeft(left + 1)
+const notes = [
+    {
+        id: 1,
+        content: 'HTML is easy',
+        date: '2019-05-30T17:30:31.098Z',
+        important: true
+    },
+    {
+        id: 2,
+        content: 'Browser can execute only Javascript',
+        date: '2019-05-30T18:39:34.091Z',
+        important: false
+    },
+    {
+        id: 3,
+        content: 'GET and POST are the most important methods of HTTP protocol',
+        date: '2019-05-30T19:20:14.298Z',
+        important: true
     }
+]
 
-    const handleRightClick = () => {
-        setAll(allClicks.concat('R'))
-        setRight(right + 1)
-    }
-
+const App = ({ notes }) => {
+    console.log(notes)
     return (
         <div>
-            <div>
-                {left}
-                <Button onClick={handleLeftClick}>left</Button>
-                <Button onClick={handleRightClick}>right</Button>
-                {right}
-                <History allClicks={allClicks}/>
-            </div>
+            <h1>Notes</h1>
+            <ul>
+                {notes ? notes.map((note, id) =>
+                    <li key={id}>{note.content}</li>
+                ) : ''}
+            </ul>
         </div>
     )
 }
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <App notes={notes} />,
+    document.getElementById('root')
+)
