@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 export const Total = (props) => {
 
     const total = props.parts.reduce((acc, curr) => {
