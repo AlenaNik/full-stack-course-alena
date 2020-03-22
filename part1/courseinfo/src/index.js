@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Content } from './Content'
-import { Header }  from './Header'
-import { Total } from './Total'
+import { Course } from './Course/Course'
 
 const App = () => {
     const course = 'Half Stack application development'
@@ -18,15 +16,18 @@ const App = () => {
         {
             name: 'State of a component',
             exercises: 14
+        },
+        {
+            name: 'Redux',
+            exercises: 11
         }
     ]
 
     return (
         <div>
-            <Header course={course}/>
-            <Content parts={parts}
+            <Course course={course}
+                    parts={parts}
             />
-            <Total parts={parts}/>
         </div>
     )
 }
