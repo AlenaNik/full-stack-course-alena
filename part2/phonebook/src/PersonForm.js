@@ -1,16 +1,16 @@
 import React from 'react'
 
-export const PersonForm = ({ handleFormSubmit, valueName, handleFieldChange, valueNumber }) => {
+export const PersonForm = ({ handleFormSubmit, valueName, NameChange, NumberChange, valueNumber }) => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div>
                 name: <input
                 value={valueName}
-                onChange={handleFieldChange}/>
+                onChange={NameChange}/>
                 <br/>
                 number: <input
                 value={valueNumber}
-                onChange={handleFieldChange}/>
+                onChange={NumberChange}/>
             </div>
             <div>
                 <button type="submit">

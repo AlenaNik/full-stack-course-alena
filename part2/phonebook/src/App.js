@@ -12,8 +12,8 @@ const App = () => {
     const [ newNumber, setNewNumber ] = useState('')
     const [ filterPersons, setFilterPersons ] = useState('')
     const [ fields, handleFieldChange ] = useFormFields({
-        name: '',
-        number: '',
+        namePerson: '',
+        numberPerson: '',
         filter: ''
     });
 
@@ -44,6 +44,13 @@ const App = () => {
     const handleFilterChange = e => {
         setFilterPersons(e.target.value);
  }
+    const handleNameChange = e => {
+        setNewName(e.target.value)
+    }
+    const handleNumberChange = e => {
+        setNewNumber(e.target.value)
+    }
+
 
     const personsFiltered = filterPersons === ' '
         ? persons : persons.filter(person =>
@@ -60,15 +67,18 @@ const App = () => {
             <h2>add a new</h2>
             <PersonForm
                 handleFormSubmit={addPerson}
-                valueName={fields.newName}
-                handleFieldChange={handleFieldChange}
-                valueNumber={fields.newNumber}
+                valueName={newName}
+                NumberChange={handleNumberChange}
+                NameChange={handleNameChange}
+                valueNumber={newNumber}
             >
             </PersonForm>
             <h2>Numbers</h2>
             <ol>
                 {personsFiltered ? personsFiltered.map((person, id) =>
-                    <Persons key={id}>{person.name} {person.number}</Persons>
+                    <Persons key={id}
+                             person={person.name}
+                             num={person.number} />
                 ): ''}
             </ol>
         </div>

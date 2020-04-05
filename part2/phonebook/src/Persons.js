@@ -1,7 +1,8 @@
 import React from 'react'
 
-export const Persons = ({ id, children }) => {
+export const Persons = ({ num, person }) => {
+    console.log(person)
     return (
-        <li key={id}>{children}</li>
+        <li>{num} {person}</li>
     )
 }
