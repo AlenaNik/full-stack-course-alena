@@ -11,11 +11,6 @@ const App = () => {
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
     const [ filterPersons, setFilterPersons ] = useState('')
-    const [ fields, handleFieldChange ] = useFormFields({
-        namePerson: '',
-        numberPerson: '',
-        filter: ''
-    });
 
     useEffect(() => {
         axios
@@ -32,13 +27,17 @@ const App = () => {
             number: newNumber,
         }
 
-        persons.filter(person => {
-            person.name === personObject.name ? alert(`${personObject.name} is 
-        already added to phonebook
-        `) : setPersons(persons.concat(personObject))
-            setNewName('')
-            setNewNumber('')
-        })
+        if (persons.filter(person => person.name === personObject.name).length > 0
+        ) {
+            window.confirm`${personObject.name
+                } is already on the list`
+        } else {
+            axios.post('http://localhost:3001/persons', personObject).then(res => {
+                setPersons(persons.concat(res.data))
+                setNewName('')
+                setNewNumber('')
+            })
+        }
     }
 
     const handleFilterChange = e => {
@@ -51,10 +50,6 @@ const App = () => {
         setNewNumber(e.target.value)
     }
 
-
-    const personsFiltered = filterPersons === ' '
-        ? persons : persons.filter(person =>
-            person.name.toLowerCase().includes(filterPersons.toLowerCase()))
 
 
     return (
@@ -74,13 +69,9 @@ const App = () => {
             >
             </PersonForm>
             <h2>Numbers</h2>
-            <ol>
-                {personsFiltered ? personsFiltered.map((person, id) =>
-                    <Persons key={id}
-                             person={person.name}
-                             num={person.number} />
-                ): ''}
-            </ol>
+                    <Persons
+                             persons={persons}
+                             filterPersons={filterPersons} />
         </div>
     );
 }
