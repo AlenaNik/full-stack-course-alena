@@ -29,8 +29,7 @@ const App = () => {
 
         if (persons.filter(person => person.name === personObject.name).length > 0
         ) {
-            window.confirm`${personObject.name
-                } is already on the list`
+            window.confirm`${personObject.name} is already on the list`
         } else {
             axios.post('http://localhost:3001/persons', personObject).then(res => {
                 setPersons(persons.concat(res.data))

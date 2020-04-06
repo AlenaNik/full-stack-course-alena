@@ -1,6 +1,7 @@
  import React, {useState, useEffect} from 'react'
  import axios from 'axios'
  import Note from "./Note";
+import noteService from './services/notes'
 
 
  const App = () => {
@@ -9,8 +10,8 @@
     const [showAll, setShowAll] = useState(true)
 
      useEffect(() => {
-         axios.get('http://localhost:3001/notes')
-             .then(res => setNotes(res.data))
+            noteService.getAll()
+             .then(initialNotes => setNotes(initialNotes))
      },[])
 
 
@@ -32,11 +33,25 @@
             id: notes.length + 1,
         }
 
-        setNotes(notes.concat(noteObject))
+        noteService.create(noteObject).then(returnedNotes => {
+        setNotes(notes.concat(returnedNotes))
         setNewNote('')
         console.log(noteObject)
+        })
     }
 
+     const toggleImportanceOf = id => {
+         const note = notes.find(n => n.id === id)
+         const changedNote = { ...note}
+         changedNote.important = !changedNote.important
+
+         noteService.update(id, changedNote).then(returnedNotes => {
+             setNotes(notes.map(note => note.id !== id ? note : returnedNotes))
+         }).catch(error => {
+             alert(`The note: ${note.content} was already deleted`)
+             setNotes(notes.filter(n => n.id !== id))
+         })
+     }
 
 
      return (
@@ -49,7 +64,9 @@
              </div>
              <ul>
                  {notesToShow ? notesToShow.map((note, id) =>
-                     <Note key={id} note={note}/>
+                     <Note key={id} note={note}
+                           toggleImportance={() => toggleImportanceOf(note.id)}
+                     />
                  ) : ''}
              </ul>
              <form onSubmit={addNote}>
