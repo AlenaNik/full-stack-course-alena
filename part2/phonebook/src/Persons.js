@@ -1,7 +1,7 @@
 import React from 'react'
 import Person from './Person'
 
-export const Persons = ({ persons, filterPersons }) => {
+export const Persons = ({ persons, filterPersons, deletePerson }) => {
 
     return (
         <>
@@ -11,7 +11,9 @@ export const Persons = ({ persons, filterPersons }) => {
                 person => (
                 <Person  key={person.id}
                          person={person.name}
-                         num={person.number} />)
+                         num={person.number}
+                         deleteP={() => deletePerson(person.id)}
+                />)
             )}
         </>
     )

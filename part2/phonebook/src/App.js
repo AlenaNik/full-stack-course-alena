@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css';
 import { useFormFields } from './FormHook'
+import personsServices from './services/personsServices'
 import { PersonForm } from './PersonForm'
 import { Persons } from './Persons'
 import { Filter } from './Filter'
@@ -13,9 +14,8 @@ const App = () => {
     const [ filterPersons, setFilterPersons ] = useState('')
 
     useEffect(() => {
-        axios
-            .get('http://localhost:3001/persons').then(response => {
-            setPersons(response.data)
+        personsServices.getPersons().then(initialPersons => {
+            setPersons(initialPersons)
         })
     }, [])
 
@@ -31,13 +31,23 @@ const App = () => {
         ) {
             window.confirm`${personObject.name} is already on the list`
         } else {
-            axios.post('http://localhost:3001/persons', personObject).then(res => {
-                setPersons(persons.concat(res.data))
+            personsServices.createPersons().post('http://localhost:3001/persons', personObject).then(returnedPerson => {
+                setPersons(persons.concat(returnedPerson))
                 setNewName('')
                 setNewNumber('')
             })
         }
     }
+
+    const deletePerson = (id, name) => {
+        const person = persons.find(p => p.id === id)
+        const personsToDelete = {...person}
+        personsServices.deletePersons(id, personsToDelete).then(returnedPerson => {
+            alert(`You want to delete ${personsToDelete.name} ?`)
+            setPersons(persons.filter(n => n.id !== id))
+        })
+    }
+
 
     const handleFilterChange = e => {
         setFilterPersons(e.target.value);
@@ -70,7 +80,9 @@ const App = () => {
             <h2>Numbers</h2>
                     <Persons
                              persons={persons}
-                             filterPersons={filterPersons} />
+                             filterPersons={filterPersons}
+                             deletePerson={deletePerson}
+                    />
         </div>
     );
 }
